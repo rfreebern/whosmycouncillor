@@ -25,13 +25,9 @@ var showAllWards=true;
 var showSingleWard=false;
 var showNoWards=false;
 
-var showWardLabels=false;
-
 var showAllDistricts=false;
 var showSingleDistricts=false;
 var showNoDistricts=true;
-
-var showDistrictLabels=false;
 
 var d601;
 var d602;
@@ -40,14 +36,6 @@ var d604;
 var d605;
 var d606;
 var d607;
-
-var d601label;
-var d602label;
-var d603label;
-var d604label;
-var d605label;
-var d606label;
-var d607label;
 
 var northDistrict;
 var northDistrictStroke="#000000";
@@ -102,15 +90,6 @@ var d606fill="#ff0000";
 var d607stroke="#000000";
 var d607fill="#FF00BF";
 
-var w1label;
-var w2label;
-var w3label;
-var w4label;
-var w5label;
-var w6label;
-var w7label;
-var w8label;
-
 var w1;
 var w2;
 var w3;
@@ -145,117 +124,12 @@ var w8fill="#FFBF00";
 var w8stroke="#000000";
 
 $(document).ready(function () {
-    $("input[name=f_showWardBoundaries]:radio").change(function () {
-    
-        if ($("#f_AllWards").is(":checked")==true) {
-      showAllWards=true;
-      showSingleWard=false;
-      showNoWards=false;        
-    }
-        if ($("#f_SelectedWard").is(":checked")==true) {
-      showAllWards=false;
-      showSingleWard=true;
-      showNoWards=false;
-    }
-        if ($("#f_NoWards").is(":checked")==true) {
-      showAllWards=false;
-      showSingleWard=false;
-      showNoWards=true;
-        }
-
-        getWardLayerDisplay();
-        displayWardLabels();
-        showPollingPlaces();
-    });
-    
-    $("#f_showPollingPlaces").change(function(){
-      if(this.checked){
-        showPollingPlaces();
-      }
-      else {
-        hidePollingPlaces();
-      }      
-    });
-            
-    
-    $("#f_showWardLabel").change(function(){
-      if(this.checked){
-        showWardLabels=true;
-        displayWardLabels();
-      }
-      else {
-        showWardLabels=false;
-        hideWardLabels();
-      }      
-    });
-        
-    $("#f_showInfoWindow").change(function(){
-      if(this.checked){
-        autoInfoWindow=true;      }
-      else {
-        autoInfoWindow=false;
-      }      
-    });
-        
-    $("#f_showDistrictLabel").change(function(){
-      if(this.checked){
-        showDistrictLabels=true;
-        displayDistrictLabels();
-      }
-      else {
-        showDistrictLabels=false;
-        hideDistrictLabels();
-      }      
-    });
-    
-    $("#f_showGPS").change(function(){
-      if(this.checked){
-        $("#gpsContainer").slideDown();
-      }
-      else {
-        $("#gpsContainer").slideUp();
-      }      
-    });
-
-    $("input[name=f_showDistrictBoundaries]:radio").change(function () {
-        if ($("#f_AllDistricts").is(":checked")==true) {
-          showAllDistricts=true;
-          showSingleDistricts=false;
-          showNoDistricts=false;
-      }
-        if ($("#f_SelectedDistricts").is(":checked")==true) {
-          showAllDistricts=false;
-          showSingleDistricts=true;
-          showNoDistricts=false;
-    }
-        if ($("#f_NoDistricts").is(":checked")==true) {
-          showAllDistricts=false;
-          showSingleDistricts=false;
-          showNoDistricts=true;
-        }
-
-        getDistrictLayerDisplay();
-        displayDistrictLabels();
-    });
-    
-    
+  showAllWards=true;
+  autoInfoWindow=true;
+  $("#gpsContainer").slideDown();
 });
 
-
-function hidePollingPlaces() {
-  w1marker.setMap(null);  
-  w2marker.setMap(null);  
-  w3marker.setMap(null);  
-  w4marker.setMap(null);  
-  w5marker.setMap(null);  
-  w6marker.setMap(null);  
-  w7marker.setMap(null);  
-  w8marker.setMap(null);  
-}
-
 function showPollingPlaces(){
-  hidePollingPlaces();
-
   if(showAllWards==true){
     w1marker.setMap(map);
     w2marker.setMap(map);
@@ -460,22 +334,9 @@ function init(){
     get607();
     
     showWards();
-    initWardLabels();
-    initDistrictLabels();
     getPollingPlaces();
     
     map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-}
-
-function hideWards(){
-    w1.setMap(null);
-    w2.setMap(null);
-    w3.setMap(null);
-    w4.setMap(null);
-    w5.setMap(null);
-    w6.setMap(null);
-    w7.setMap(null);
-    w8.setMap(null);
 }
 
 function showWards(){
@@ -489,16 +350,6 @@ function showWards(){
     w8.setMap(map);
 }
 
-function hideDistricts(){
-    d601.setMap(null);
-    d602.setMap(null);
-    d603.setMap(null);
-    d604.setMap(null);
-    d605.setMap(null);
-    d606.setMap(null);
-    d607.setMap(null);
-}
-
 function showDistricts(){
     d601.setMap(map);
     d602.setMap(map);
@@ -507,69 +358,6 @@ function showDistricts(){
     d605.setMap(map);
     d606.setMap(map);
     d607.setMap(map);
-}
-
-function getDistrictLayerDisplay(){
-  if(showNoDistricts==true){
-    hideDistricts();
-  }
-  else {
-
-    if(hasMarker==true){
-      if(showSingleDistricts==true){      
-        if(inDistrict>0){
-          hideDistricts();
-          eval('d60'+inDistrict).setMap(map);
-        }
-      }
-      else {
-        showDistricts();
-      }  
-    }
-    else { //no marker
-      if(showAllDistricts==true){
-        showDistricts();
-      }
-      else {
-        hideDistricts();
-      }
-    }
-  }
-}
-
-function getWardLayerDisplay(){
-  /*
-  var showAllWards=true;
-  var showSingleWard=false;
-  var showNoWards=false;
-  */
-  
-  //alert("Ward: " + inWard + ", hasMarker: " + hasMarker + ", showSingleWard:" + showSingleWard);
-  
-  if(showNoWards==true){
-    hideWards();
-  }
-  else {
-    if(hasMarker==true){
-      if(showSingleWard==true){
-        if(inWard>0){
-          hideWards();
-          eval('w'+inWard).setMap(map);
-        }
-      }
-      else {
-        showWards();
-      }  
-    }
-    else { //no marker
-      if(showAllWards==true){
-        showWards();
-      }
-      else {
-        hideWards();
-      }
-    }
-  }
 }
 
 function searchOnEnter(e){
@@ -595,12 +383,9 @@ function geocode(){
  
 function geolocate(place) {
     address = place + ", Burlington, VT";
-
     matchedAddress = "";
-
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-    
           if(results.length > 1){
              //build drop down list of matches
             //build drop down list of matches
@@ -613,27 +398,27 @@ function geolocate(place) {
                ma = results[i].formatted_address.replace(", USA", "").replace(",  USA", "");
                mo += "<option value=\"" + results[i].geometry.location + "\">" + ma + "</option>\r\n";
                matchedAddresses += '[' + (i + 1) + ']' + ' ' + ma + '\r\n';
-             }
+            }
 
-             dm = "<select size=\"1\" id=\"matchedAddressOptions\" onchange=\"moveMarker(this.options[this.selectedIndex].value);\">" + mo + "</select>";
+            dm = "<select size=\"1\" id=\"matchedAddressOptions\" onchange=\"moveMarker(this.options[this.selectedIndex].value);\">" + mo + "</select>";
 
-             $("#resultsAddress").html(dm);
-             
-             alert('Google found ' + results.length + ' likely matches for:\r\n' + address + '\r\n\r\n' + matchedAddresses);
+            $("#resultsAddress").html(dm);
+
+            alert('Google found ' + results.length + ' likely matches for:\r\n' + address + '\r\n\r\n' + matchedAddresses);
           }
           else {
             $("#resultsAddress").html(results[0].formatted_address.replace(", USA", "").replace(",  USA", ""));
           }
           
-            createMarker(place, results[0].geometry.location, results[0].formatted_address);
+          createMarker(place, results[0].geometry.location, results[0].formatted_address);
 
-            if (continueNewMarker == true) {
-                map.panTo(results[0].geometry.location);
-                map.setZoom(14);
-            }
+          if (continueNewMarker == true) {
+            map.panTo(results[0].geometry.location);
+            map.setZoom(14);
+          }
         }
         else {
-            alert("Geocode was not successful for the following reason: " + status);
+          alert("Geocode was not successful for the following reason: " + status);
         }
     });
 }
@@ -646,15 +431,10 @@ function moveMarker(l) {
   lng=latlngarray[1];
 
   var location = new google.maps.LatLng(lat, lng);
-
     if (hasMarker == true) { newMarker.setMap(null); }
-
     var newMarkerIcon = '/public/voter/img/wayfinding.png';
-
     $("#resultsGPS").html(location.lat() + ", " + location.lng());
-
     //$("#resultsAddress").html(address.replace(", USA", "").replace(",  USA", ""));
-
     if (!isInsidePolygon(cityBounds, location)) {
         if (confirm("The location appears to be outside of the City boundary, would you like to place your marker anyway?")) {
             continueNewMarker = true;
@@ -680,20 +460,13 @@ function moveMarker(l) {
         });
 
         hasMarker=true;
-    
-    getWardLayerDisplay();
-    displayWardLabels();
+
     showPollingPlaces();
-    getDistrictLayerDisplay();
-    displayDistrictLabels();
-    
+
         google.maps.event.addListener(newMarker, 'dragend', function () {
           location = newMarker.getPosition();
-          
           $("#resultsGPS").html(location.lat() + ", " + location.lng());
-    
             ReverseGeocodeLocation(location);
-
         });
 
         html = '<div style=\"min-height: 50px; width: 240px; padding: 20px;\"><div><strong>Ward:</strong> ' + inWard + '</div><div><strong>City District</strong> ' + inCityDistrict + '</div><div><strong>State District:</strong> Chittenden 6-0' + inDistrict + '</div><div><strong>Polling Location</strong> ' + inPollingLocation + '</div><div><strong>Ward Councillor</strong> ' + wardCouncilMember + '</div><div><strong>District Councillor</strong> ' + districtCouncilMember + '</div></div>';
@@ -749,11 +522,7 @@ function createMarker(search, location, address) {
 
         hasMarker=true;
     
-    getWardLayerDisplay();
-    displayWardLabels();
     showPollingPlaces();
-    getDistrictLayerDisplay();
-    displayDistrictLabels();
     
         google.maps.event.addListener(newMarker, 'dragend', function () {
           location = newMarker.getPosition();
@@ -775,233 +544,6 @@ function createMarker(search, location, address) {
     }
 }
 
-function hideWardLabels(){
-  w1label.setMap(null);
-  w2label.setMap(null);
-  w3label.setMap(null);
-  w4label.setMap(null);
-  w5label.setMap(null);
-  w6label.setMap(null);
-  w7label.setMap(null);
-  w8label.setMap(null);
-}
-
-function hideDistrictLabels(){
-  d601label.setMap(null);
-  d602label.setMap(null);
-  d603label.setMap(null);
-  d604label.setMap(null);
-  d605label.setMap(null);
-  d606label.setMap(null);
-  d607label.setMap(null);
-}
-
-function initWardLabels(){
-  //NORTH DISTRICT
-  w7label = new MapLabel({
-    text: '7 N',
-    position: new google.maps.LatLng(44.514853, -73.245452),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  w4label = new MapLabel({
-    text: '4 N',
-    position: new google.maps.LatLng(44.507141760888445,  -73.26055884361267),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  //CENTRAL DISTRICT
-  w2label = new MapLabel({
-    text: '2 C',
-    position: new google.maps.LatLng(44.48770394030756, -73.2119626931152),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-
-  w3label = new MapLabel({
-    text: '3 C',
-    position: new google.maps.LatLng(44.480447534172754, -73.22232127189636),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  //EAST DISTRICT
-  w1label = new MapLabel({
-    text: '1 E',
-    position: new google.maps.LatLng(44.48240715896731, -73.1923234462738),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-
-  w8label = new MapLabel({
-    text: '8 E',
-    position: new google.maps.LatLng(44.47147528647097, -73.19391131401062),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-
-  //SOUTH DISTRICT
-  w5label = new MapLabel({
-    text: '5 S',
-    position: new google.maps.LatLng(44.45602325188159, -73.22184920310974),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  w6label = new MapLabel({
-    text: '6 S',
-    position: new google.maps.LatLng(44.4646609686103, -73.20159316062927),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  hideWardLabels();
-}
-
-function displayWardLabels(){
-
-
-  if(showWardLabels==true){
-    if(showAllWards==true){
-      w7label.setMap(map);
-      w4label.setMap(map);
-      w2label.setMap(map);
-      w3label.setMap(map);
-      w1label.setMap(map);
-      w8label.setMap(map);
-      w5label.setMap(map);
-      w6label.setMap(map);
-    }
-    
-    if(showNoWards==true){
-      hideWardLabels();
-    }
-    
-    if(showSingleWard==true){
-      hideWardLabels();
-  
-      if(inWard>0){    
-        if(inWard==1){w1label.setMap(map);}else{w1label.setMap(null);}
-        if(inWard==2){w2label.setMap(map);}else{w2label.setMap(null);}
-        if(inWard==3){w3label.setMap(map);}else{w3label.setMap(null);}
-        if(inWard==4){w4label.setMap(map);}else{w4label.setMap(null);}
-        if(inWard==5){w5label.setMap(map);}else{w5label.setMap(null);}
-        if(inWard==6){w6label.setMap(map);}else{w6label.setMap(null);}
-        if(inWard==7){w7label.setMap(map);}else{w7label.setMap(null);}
-        if(inWard==8){w8label.setMap(map);}else{w8label.setMap(null);}
-      }
-    }
-  }
-  else {
-    hideWardLabels();
-  }
-}
-
-function displayDistrictLabels(){
-  if(showDistrictLabels==true){
-    if(showAllDistricts==true){
-      d601label.setMap(map);
-      d602label.setMap(map);
-      d603label.setMap(map);
-      d604label.setMap(map);
-      d605label.setMap(map);
-      d606label.setMap(map);
-      d607label.setMap(map);
-    }
-    
-    if(showNoDistricts==true){
-      hideDistrictLabels();
-    }
-    
-    if(showSingleDistricts==true){
-      hideDistrictLabels();
-
-      if(inDistrict>0){    
-        if(inDistrict==1){d601label.setMap(map);}else{d601label.setMap(null);}
-        if(inDistrict==2){d602label.setMap(map);}else{d602label.setMap(null);}
-        if(inDistrict==3){d603label.setMap(map);}else{d603label.setMap(null);}
-        if(inDistrict==4){d604label.setMap(map);}else{d604label.setMap(null);}
-        if(inDistrict==5){d605label.setMap(map);}else{d605label.setMap(null);}
-        if(inDistrict==6){d606label.setMap(map);}else{d606label.setMap(null);}
-        if(inDistrict==7){d607label.setMap(map);}else{d607label.setMap(null);}
-      }
-    }
-  }
-  else {
-    hideDistrictLabels();
-  }
-}
-
-function initDistrictLabels(){
-  d601label = new MapLabel({
-    text: '6-01',
-    position: new google.maps.LatLng(44.5128677, -73.26615019999997),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d602label = new MapLabel({
-    text: '6-02',
-    position: new google.maps.LatLng(44.49793170195559, -73.23868437968747),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d603label = new MapLabel({
-    text: '6-03',
-    position: new google.maps.LatLng(44.47924262130997, -73.21762751855465),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d604label = new MapLabel({
-    text: '6-04',
-    position: new google.maps.LatLng(44.481692192606076, -73.1987447670898),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d605label = new MapLabel({
-    text: '6-05',
-    position: new google.maps.LatLng(44.46062251851509, -73.21797084130856),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d606label = new MapLabel({
-    text: '6-06',
-    position: new google.maps.LatLng(44.47287325462856, -73.2038946083984),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-  
-  d607label = new MapLabel({
-    text: '6-07',
-    position: new google.maps.LatLng(44.49075471216666, -73.19393824853512),
-    map: map,
-    fontSize: 35,
-    align: 'left'
-  });
-
-  hideDistrictLabels()  
-}
-
 function getStateDistrict(location){
   if(isInsidePolygon(d601, location)==true){$("#resultsStateDistrict").html("Chittenden 6-01"); inDistrict=1;}
   if(isInsidePolygon(d602, location)==true){$("#resultsStateDistrict").html("Chittenden 6-02"); inDistrict=2;}
@@ -1010,105 +552,85 @@ function getStateDistrict(location){
   if(isInsidePolygon(d605, location)==true){$("#resultsStateDistrict").html("Chittenden 6-05"); inDistrict=5;}
   if(isInsidePolygon(d606, location)==true){$("#resultsStateDistrict").html("Chittenden 6-06"); inDistrict=6;}
   if(isInsidePolygon(d607, location)==true){$("#resultsStateDistrict").html("Chittenden 6-07"); inDistrict=7;}
-  
-  getDistrictLayerDisplay();
 }
 
 function getPointDetails(location){
-  inWard = 0;
+    inWard = 0;
     inCityDistrict="";
     inPollingLocation="";
-    
+    wardCouncilMember="";
+    districtCouncilMember="";
+
     if(isInsidePolygon(w1, location)==true){
-      $("#resultsWard").html("1");
-      $("#resultsCityDistrict").html("East (Wards 1 & 8)");
-      $("#resultsPollingPlace").html("Mater Christi School<br />100 Mansfield Avenue");
       inWard=1;
       inCityDistrict="East (Wards 1 & 8)";
-      inPollingLocation="Mater Christi School";
+      inPollingLocation="Mater Christi School<br>100 Mansfield Avenue";
       wardCouncilMember="Sharon Foley Bushor <a href=\"mailto:sbushor@burlingtonvt.gov\">sbushor@burlingtonvt.gov</a> <a href=\"tel:802-658-3604\">802-658-3604</a>";
       districtCouncilMember="Richard Deane <a href=\"mailto:rdeane@burlingtonvt.gov\">rdeane@burlingtonvt.gov</a> <a href=\"tel:802-373-7449\">802-373-7449</a>";
     }
 
     if(isInsidePolygon(w2, location)==true){
-      $("#resultsWard").html("2");
-      $("#resultsCityDistrict").html("Central (Wards 2 & 3)");
-      $("#resultsPollingPlace").html("H. O. Wheeler School<br />Corner of Walnut and Archibald Streets");
       inWard=2;
       inCityDistrict="Central (Wards 2 & 3)";
-      inPollingLocation="H. O. Wheeler School";
+      inPollingLocation="H. O. Wheeler School<br>Corner of Walnut and Archibald Streets";
       wardCouncilMember="Max Tracy <a href=\"mailto:mtracy@burlingtonvt.gov\">mtracy@burlingtonvt.gov</a> <a href=\"tel:802-373-1968\">802-373-1968</a>";
       districtCouncilMember="Jane Knodell <a href=\"mailto:jknodell@burlingtonvt.gov\">jknodell@burlingtonvt.gov</a> <a href=\"tel:802-862-2469\">802-862-2469</a>";
     }
 
     if(isInsidePolygon(w3, location)==true){
-      $("#resultsWard").html("3");
-      $("#resultsCityDistrict").html("Central (Wards 2 & 3)");
-      $("#resultsPollingPlace").html("Lawrence Barnes Elementary School<br />123 North Street");
       inWard=3;
       inCityDistrict="Central (Wards 2 & 3)";
-      inPollingLocation="Lawrence Barnes Elementary School";
+      inPollingLocation="Lawrence Barnes Elementary School<br>123 North Street";
       wardCouncilMember="Sara Moore <a href=\"mailto:smoore@burlingtonvt.gov\">smoore@burlingtonvt.gov</a> <a href=\"tel:802-540-1711\">802-540-1711</a>";
       districtCouncilMember="Jane Knodell <a href=\"mailto:jknodell@burlingtonvt.gov\">jknodell@burlingtonvt.gov</a> <a href=\"tel:802-862-2469\">802-862-2469</a>";
   }
 
     if(isInsidePolygon(w4, location)==true){
-      $("#resultsWard").html("4");
-      $("#resultsCityDistrict").html("North (Wards 4 & 7)");
-      $("#resultsPollingPlace").html("Saint Mark's Youth Center<br />1271 North Avenue");
       inWard=4;
       inCityDistrict="North (Wards 4 & 7)";
-      inPollingLocation="Saint Mark's Youth Center";
+      inPollingLocation="Saint Mark's Youth Center<br>1271 North Avenue";
       wardCouncilMember="Kurt Wright <a href=\"mailto:kwright@burlingtonvt.gov\">kwright@burlingtonvt.gov</a> <a href=\"tel:802-658-1410\">802-658-1410</a>";
       districtCouncilMember="David Hartnett <a href=\"mailto:dhartnett@burlingtonvt.gov\">dhartnett@burlingtonvt.gov</a> <a href=\"tel:802-864-7895\">802-864-7895</a>";
     }
 
     if(isInsidePolygon(w5, location)==true){
-      $("#resultsWard").html("5");
-      $("#resultsCityDistrict").html("South (Wards 5 & 6)");
-      $("#resultsPollingPlace").html("Burlington Electric Department<br />585 Pine Street");
       inWard=5;
       inCityDistrict="South (Wards 5 & 6)";
-      inPollingLocation="Burlington Electric Department";
+      inPollingLocation="Burlington Electric Department<br>585 Pine Street";
       wardCouncilMember="William \"Chip\" Mason <a href=\"mailto:cmason@burlingtonvt.gov\">cmason@burlingtonvt.gov</a> <a href=\"tel:802-373-8545\">802-373-8545</a>";
       districtCouncilMember="Joan Shannon <a href=\"mailto:jshannon@burlingtonvt.gov\">jshannon@burlingtonvt.gov</a> <a href=\"tel:802-860-7489\">802-860-7489</a>";
     }
 
     if(isInsidePolygon(w6, location)==true){
-      $("#resultsWard").html("6");
-      $("#resultsCityDistrict").html("South (Wards 5 & 6)");
-      $("#resultsPollingPlace").html("Edmunds Middle School<br />Corner of Main St and South Union");
       inWard=6;
       inCityDistrict="South (Wards 5 & 6)";
-      inPollingLocation="Edmunds Middle School";
+      inPollingLocation="Edmunds Middle School<br>Corner of Main St and South Union";
       wardCouncilMember="Karen Paul <a href=\"mailto:kpaul@burlingtonvt.gov\">kpaul@burlingtonvt.gov</a> <a href=\"tel:802-863-3817\">802-863-3817</a>";
       districtCouncilMember="Joan Shannon <a href=\"mailto:jshannon@burlingtonvt.gov\">jshannon@burlingtonvt.gov</a> <a href=\"tel:802-860-7489\">802-860-7489</a>";
     }
 
     if(isInsidePolygon(w7, location)==true){
-      $("#resultsWard").html("7");
-      $("#resultsCityDistrict").html("North (Wards 4 & 7)");
-      $("#resultsPollingPlace").html("Robert Miller Community &amp; Recreation Center<br />130 Gosse Court");
       inWard=7;
       inCityDistrict="North (Wards 4 & 7)";
-      inPollingLocation="Miller Center";
+      inPollingLocation="Robert Miller Community &amp; Recreation Center<br>130 Gosse Court";
       wardCouncilMember="Ali Dieng <a href=\"mailto:adieng@burlingtonvt.gov\">adieng@burlingtonvt.gov</a> <a href=\"tel:802-318-2527\">802-318-2527</a>";
       districtCouncilMember="David Hartnett <a href=\"mailto:dhartnett@burlingtonvt.gov\">dhartnett@burlingtonvt.gov</a> <a href=\"tel:802-864-7895\">802-864-7895</a>";
     }
 
     if(isInsidePolygon(w8, location)==true){
-      $("#resultsWard").html("8");
-      $("#resultsCityDistrict").html("East (Wards 1 & 8)");
-      $("#resultsPollingPlace").html("Fletcher Free Library<br />235 College Street");
       inWard=8;
       inCityDistrict="East (Wards 1 & 8)";
-      inPollingLocation="Fletcher Free Library";
+      inPollingLocation="Fletcher Free Library<br>235 College Street";
       wardCouncilMember="Adam Roof <a href=\"mailto:aroof@burlingtonvt.gov\">aroof@burlingtonvt.gov</a> <a href=\"tel:802-777-3255\">802-777-3255</a>";
       districtCouncilMember="Richard Deane <a href=\"mailto:rdeane@burlingtonvt.gov\">rdeane@burlingtonvt.gov</a> <a href=\"tel:802-373-7449\">802-373-7449</a>";
     }
 
-    getWardLayerDisplay();
-    
+    $("#resultsWard").html(inWard);
+    $("#resultsCityDistrict").html(inCityDistrict);
+    $("#resultsPollingPlace").html(inPollingLocation);
+    $("#resultsWardCouncillor").html(wardCouncilMember);
+    $("#resultsDistrictCouncillor").html(districtCouncilMember);
+
     getStateDistrict(location);
 }
 
@@ -1139,8 +661,6 @@ function ReverseGeocodeLocation(location) {
                     hideWards();
                   }
                   
-                  displayWardLabels();
-                  displayDistrictLabels();
                   showPollingPlaces();
                   
                 html = '<div style=\"min-height: 50px; width: 240px; padding: 20px;\"><div><strong>Outside Burlington City Boundary</strong></div></div>';
@@ -1156,8 +676,6 @@ function ReverseGeocodeLocation(location) {
           else {
           getPointDetails(location);
           
-          displayWardLabels();
-          displayDistrictLabels();
           showPollingPlaces();
           
           html = '<div style=\"min-height: 50px; width: 240px; padding: 20px;\"><div><strong>Ward:</strong> ' + inWard + '</div><div><strong>City District</strong> ' + inCityDistrict + '</div><div><strong>State District:</strong> Chittenden 6-0' + inDistrict + '</div><div><strong>Polling Location</strong> ' + inPollingLocation + '</div></div>';
