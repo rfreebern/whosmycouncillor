@@ -24,6 +24,7 @@
         },
         map = new google.maps.Map(document.getElementById("map"), mapOptions),
         geocoder = new google.maps.Geocoder(),
+        wards = [],
         infoWindow = new google.maps.InfoWindow();
 
     // Load and draw wards
@@ -35,9 +36,9 @@
             var wardNumber = ward[9];
             var district = ward[10];
 
-            var polygon = pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber));
-            addWardInfoWindow(polygon, wardNumber, district);
-            polygon.setMap(map);
+            wards[wardNumber] = pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber));
+            addWardClickHandler(wards[wardNumber], wardNumber, district);
+            wards[wardNumber].setMap(map);
         });
     });
 
@@ -98,14 +99,28 @@
         return google.maps.geometry.poly.containsLocation(point, polygon);
     }
 
-    function addWardInfoWindow (polygon, wardNumber, district) {
+    function addWardClickHandler (polygon, wardNumber, district) {
         google.maps.event.addListener(polygon, 'click', function (event) {
             infoWindow.close();
+            bounds = getBoundsForPolygon(polygon);
+            map.fitBounds(bounds);
             infoWindow.setOptions({
                 content: 'Ward ' + wardNumber + '<br>' + district + ' District',
                 position: event.latLng
             });
+            google.maps.event.addListener(infoWindow, 'closeclick', function (event) {
+                map.panTo(mapOptions.center);
+                map.setZoom(mapOptions.zoom);
+            });
             infoWindow.open(map);
         });
+    }
+
+    function getBoundsForPolygon(polygon) {
+        var bounds = new google.maps.LatLngBounds;
+        polygon.getPath().forEach(function(latLng) {
+            bounds.extend(latLng);
+        });
+        return bounds;
     }
 })();
