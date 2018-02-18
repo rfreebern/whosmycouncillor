@@ -23,7 +23,8 @@
             navigationControl: true
         },
         map = new google.maps.Map(document.getElementById("map"), mapOptions),
-        geocoder = new google.maps.Geocoder();
+        geocoder = new google.maps.Geocoder(),
+        infoWindow = new google.maps.InfoWindow();
 
     // Load and draw wards & districts
     loadCityBoundaryJSON(function (response) {
@@ -35,6 +36,7 @@
             var district = ward[10];
 
             var polygon = pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber));
+            addWardInfoWindow(polygon, wardNumber, district);
             polygon.setMap(map);
         });
     });
@@ -76,8 +78,8 @@
             4: '#ffff00',
             5: '#ff00ff',
             6: '#00ffff',
-            7: '#000000',
-            8: '#ffffff'
+            7: '#006600',
+            8: '#ff9900'
         };
         return colors[wardNumber];
     }
@@ -90,5 +92,20 @@
             path.push(new google.maps.LatLng(latlng[1], latlng[0]));
         });
         return path;
+    }
+
+    function pointInPolygon (point, polygon) {
+        return google.maps.geometry.poly.containsLocation(point, polygon);
+    }
+
+    function addWardInfoWindow (polygon, wardNumber, district) {
+        google.maps.event.addListener(polygon, 'click', function (event) {
+            infoWindow.close();
+            infoWindow.setOptions({
+                content: 'Ward ' + wardNumber + '<br>' + district + ' District',
+                position: event.latLng
+            });
+            infoWindow.open(map);
+        });
     }
 })();
