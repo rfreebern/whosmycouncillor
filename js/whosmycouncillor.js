@@ -26,8 +26,8 @@
         geocoder = new google.maps.Geocoder(),
         infoWindow = new google.maps.InfoWindow();
 
-    // Load and draw wards & districts
-    loadCityBoundaryJSON(function (response) {
+    // Load and draw wards
+    loadJSON('data/City-Ward-Map.json', function (response) {
         data = JSON.parse(response).data;
         
         data.forEach(function (ward) {
@@ -46,10 +46,10 @@
     // Wire up geolocation API
 
     // Supporting functions
-    function loadCityBoundaryJSON (callback) {   
+    function loadJSON (path, callback) {   
         var xhr = new XMLHttpRequest();
             xhr.overrideMimeType("application/json");
-            xhr.open('GET', 'data/City-Ward-Map.json', true);
+            xhr.open('GET', path, true);
             xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == "200") {
                 callback(xhr.responseText);
