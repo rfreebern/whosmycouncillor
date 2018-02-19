@@ -188,14 +188,14 @@
     function addWardClickHandler (polygon, wardNumber, district) {
         google.maps.event.addListener(polygon, 'click', function (event) {
             infoWindow.close();
+            document.getElementById('results').innerHTML = '';
+            marker.setMap(null);
             bounds = getBoundsForPolygon(polygon);
             map.fitBounds(bounds);
             infoWindow.setPosition(event.latLng);
             google.maps.event.addListener(infoWindow, 'closeclick', function (event) {
                 map.panTo(mapOptions.center);
                 map.setZoom(mapOptions.zoom);
-                document.getElementById('results').innerHTML = '';
-                marker.setMap(null);
             });
             infoWindow.setContent(getInfoWindowContent(wardNumber));
             infoWindow.open(map);
