@@ -1,0 +1,132 @@
+[
+    {
+        "ward": 1,
+        "candidates": [
+            {
+                "name": "Sharon Foley Bushor",
+                "party": "Independent",
+                "incumbent": true,
+                "website": "https://www.facebook.com/SharonBushorForCityCouncil/"
+            }
+        ]
+    },
+    {
+        "ward": 2,
+        "candidates": [
+            {
+                "name": "Max Tracy",
+                "party": "Progressive",
+                "incumbent": true,
+                "website": "https://maxforburlington.wordpress.com/"
+            }
+        ]
+    },
+    {
+        "ward": 3,
+        "candidates": [
+            {
+                "name": "Lizzie Haskell",
+                "party": "Democrat",
+                "incumbent": false,
+                "website": "https://www.lizziehaskell.com/"
+            },
+            {
+                "name": "James Lockridge",
+                "party": "Independent",
+                "incumbent": false,
+                "website": "http://www.ivotelockridge.com/"
+            },
+            {
+                "name": "Brian Pine",
+                "party": "Progressive",
+                "incumbent": false,
+                "website": "https://pineforward3.com/"
+            }
+        ]
+    },
+    {
+        "ward": 4,
+        "candidates": [
+            {
+                "name": "Kurt Wright",
+                "party": "Republican",
+                "incumbent": true,
+                "website": "https://www.facebook.com/wrightforburlington/"
+            }
+        ]
+    },
+    {
+        "ward": 5,
+        "candidates": [
+            {
+                "name": "William \"Chip\" Mason",
+                "party": "Democrat",
+                "incumbent": true,
+                "website": "https://www.votechipmason.com/"
+            },
+            {
+                "name": "Jesse Warren",
+                "party": "Progressive",
+                "incumbent": false,
+                "website": "http://jessewarren.org/"
+            }
+        ]
+    },
+    {
+        "ward": 6,
+        "candidates": [
+            {
+                "name": "Karen Paul",
+                "party": "Democrat",
+                "incumbent": true,
+                "website": "https://www.karenpaulbtv.com/"
+            },
+            {
+                "name": "Joel FitzGerald",
+                "party": "Republican",
+                "incumbent": false,
+                "website": null
+            },
+            {
+                "name": "Charles Simpson",
+                "party": "Progressive",
+                "incumbent": false,
+                "website": "http://charlessimpsonvt.com/"
+            }
+        ]
+    },
+    {
+        "ward": 7,
+        "candidates": [
+            {
+                "name": "Ali Dieng",
+                "party": "Progressive/Democrat",
+                "incumbent": true,
+                "website": "https://alidieng.com/"
+            },
+            {
+                "name": "James Loop",
+                "party": "Independent",
+                "incumbent": false,
+                "website": "https://jamesloop.com/"
+            }
+        ]
+    },
+    {
+        "ward": 8,
+        "candidates": [
+            {
+                "name": "Adam Roof",
+                "party": "Independent",
+                "incumbent": true,
+                "website": "http://adamroof.com/"
+            },
+            {
+                "name": "J.F. Carter Neubieser",
+                "party": "Progressive",
+                "incumbent": false,
+                "website": "https://jfcarterforward8.com/"
+            }
+        ]
+    }
+]

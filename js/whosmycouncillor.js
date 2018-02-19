@@ -71,6 +71,15 @@
                 wards[pollingPlace.ward].pollingPlace = pollingPlace;
             });
         });
+
+        // Load candidates info
+        loadJSON('data/Candidates.json', function (response) {
+            data = JSON.parse(response);
+
+            data.forEach(function (candidates) {
+                wards[candidates.ward].candidates = candidates.candidates;
+            });
+        });
     });
 
     // Wire up search box
@@ -209,7 +218,7 @@
                 label: wards[wardNumber].pollingPlace.name
             });
             marker.setMap(map);
-            document.getElementById('results').innerHTML = getInfoWindowContent(wardNumber);
+            document.getElementById('results').innerHTML = getInfoWindowContent(wardNumber, true);
         });
     }
 
@@ -223,10 +232,10 @@
         return bounds;
     }
 
-    function getInfoWindowContent (wardNumber) {
+    function getInfoWindowContent (wardNumber, includeCandidates) {
         var w = wards[wardNumber];
         var c = districts[w.district];
-        return '<strong>Ward ' + wardNumber + '</strong><br>' +
+        var html = '<strong>Ward ' + wardNumber + '</strong><br>' +
                w.councillor.name + '<br>' +
                '<a href="mailto:' + w.councillor.email + '">' + w.councillor.email + '</a>, ' +
                '<a href="tel:' + w.councillor.phone + '">' + w.councillor.phone + '</a><br>' +
@@ -237,5 +246,20 @@
                '<a href="mailto:' + c.councillor.email + '">' + c.councillor.email + '</a>, ' +
                '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
                '<a href="' + w.councillor.website + '">Website</a>';
+        if (includeCandidates) {
+            html += '<hr><strong>Election 2018 Candidate Information</strong><br>';
+            w.candidates.forEach(function (candidate) {
+                html += candidate.name + ' (';
+                if (candidate.incumbent) {
+                    html += 'Incumbent, ';
+                }
+                html += candidate.party + ')';
+                if (candidate.website) {
+                    html += ' <a href="' + candidate.website + '">Website</a>';
+                }
+                html += '<br>';
+            });
+        }
+        return html;
     }
 })();
