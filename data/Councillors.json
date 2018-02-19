@@ -1,0 +1,86 @@
+[
+    {
+        "wardNumber": 1,
+        "name": "Sharon Foley Bushor",
+        "email": "sbushor@burlingtonvt.gov",
+        "phone": "802-658-3604",
+        "website": "https://www.facebook.com/SharonBushorForCityCouncil/"
+    },
+    {
+        "wardNumber": 2,
+        "name": "Max Tracy",
+        "email": "mtracy@burlingtonvt.gov",
+        "phone": "802-373-1968",
+        "website": "https://maxforburlington.wordpress.com/"
+    },
+    {
+        "wardNumber": 3,
+        "name": "Sara Moore",
+        "email": "smoore@burlingtonvt.gov",
+        "phone": "802-540-1711",
+        "website": "https://www.facebook.com/SaraMooreCityCouncil/"
+    },
+    {
+        "wardNumber": 4,
+        "name": "Kurt Wright",
+        "email": "kwright@burlingtonvt.gov",
+        "phone": "802-658-1410",
+        "website": "https://www.facebook.com/wrightforburlington/"
+    },
+    {
+        "wardNumber": 5,
+        "name": "William \"Chip\" Mason",
+        "email": "cmason@burlingtonvt.gov",
+        "phone": "802-373-8545",
+        "website": "https://www.votechipmason.com/"
+    },
+    {
+        "wardNumber": 6,
+        "name": "Karen Paul",
+        "email": "kpaul@burlingtonvt.gov",
+        "phone": "802-863-3817",
+        "website": "https://www.karenpaulbtv.com/"
+    },
+    {
+        "wardNumber": 7,
+        "name": "Ali Dieng",
+        "email": "adieng@burlingtonvt.gov",
+        "phone": "802-318-2527",
+        "website": "https://alidieng.com/"
+    },
+    {
+        "wardNumber": 8,
+        "name": "Adam Roof",
+        "email": "aroof@burlingtonvt.gov",
+        "phone": "802-777-3255",
+        "website": "http://adamroof.com/"
+    },
+    {
+        "district": "North",
+        "name": "David Hartnett",
+        "email": "dhartnett@burlingtonvt.gov",
+        "phone": "802-864-7895",
+        "website": "https://www.facebook.com/Re-Elect-Dave-Hartnett-for-City-Council-485115218293406/"
+    },
+    {
+        "district": "Central",
+        "name": "Jane Knodell",
+        "email": "jknodell@burlingtonvt.gov",
+        "phone": "802-862-2469",
+        "website": "https://www.facebook.com/janeknodellforburlington/"
+    },
+    {
+        "district": "East",
+        "name": "Richard Deane",
+        "email": "rdeane@burlingtonvt.gov",
+        "phone": "802-373-7449",
+        "website": "https://www.facebook.com/RichardDeaneBTV/"
+    },
+    {
+        "district": "South",
+        "name": "Joan Shannon",
+        "email": "jshannon@burlingtonvt.gov",
+        "phone": "802-860-7489",
+        "website": "https://www.facebook.com/CouncilorShannon/"
+    }
+]
