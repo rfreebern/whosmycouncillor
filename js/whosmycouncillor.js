@@ -25,6 +25,7 @@
         map = new google.maps.Map(document.getElementById("map"), mapOptions),
         geocoder = new google.maps.Geocoder(),
         wards = [],
+        districts = [],
         infoWindow = new google.maps.InfoWindow();
 
     // Load and draw wards
@@ -34,11 +35,27 @@
         data.forEach(function (ward) {
             var wardBoundary = ward[8];
             var wardNumber = ward[9];
-            var district = ward[10];
+            wards[wardNumber] = {
+                district: ward[10],
+                polygon: pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber))
+            };
+            addWardClickHandler(wards[wardNumber].polygon, wardNumber, wards[wardNumber].district);
+            wards[wardNumber].polygon.setMap(map);
+        });
+    });
 
-            wards[wardNumber] = pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber));
-            addWardClickHandler(wards[wardNumber], wardNumber, district);
-            wards[wardNumber].setMap(map);
+    // Load councillor info
+    loadJSON('data/Councillors.json', function (response) {
+        data = JSON.parse(response);
+
+        data.forEach(function (councillor) {
+            if (councillor.hasOwnProperty('wardNumber')) {
+                wards[councillor.wardNumber].councillor = councillor;
+            } else if (councillor.hasOwnProperty('district')) {
+                districts[councillor.district] = {
+                    councillor: councillor
+                };
+            }
         });
     });
 
@@ -104,23 +121,36 @@
             infoWindow.close();
             bounds = getBoundsForPolygon(polygon);
             map.fitBounds(bounds);
-            infoWindow.setOptions({
-                content: 'Ward ' + wardNumber + '<br>' + district + ' District',
-                position: event.latLng
-            });
+            infoWindow.setPosition(event.latLng);
             google.maps.event.addListener(infoWindow, 'closeclick', function (event) {
                 map.panTo(mapOptions.center);
                 map.setZoom(mapOptions.zoom);
             });
+            infoWindow.setContent(getInfoWindowContent(wardNumber));
             infoWindow.open(map);
         });
     }
 
-    function getBoundsForPolygon(polygon) {
+    function getBoundsForPolygon (polygon) {
         var bounds = new google.maps.LatLngBounds;
         polygon.getPath().forEach(function(latLng) {
             bounds.extend(latLng);
         });
         return bounds;
+    }
+
+    function getInfoWindowContent (wardNumber) {
+        var w = wards[wardNumber];
+        var c = districts[w.district];
+        return '<strong>Ward ' + wardNumber + '</strong><br>' +
+               'Ward Councillor: ' + w.councillor.name + '<br>' +
+               '<a href="mailto:' + w.councillor.email + '">' + w.councillor.email + '</a>, ' +
+               '<a href="tel:' + w.councillor.phone + '">' + w.councillor.phone + '</a><br>' +
+               '<a href="' + w.councillor.website + '">Website</a><br><br>' +
+               '<strong>' + w.district + ' District</strong><br>' +
+               'District Councillor: ' + c.councillor.name + '<br>' +
+               '<a href="mailto:' + c.councillor.email + '">' + c.councillor.email + '</a>, ' +
+               '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
+               '<a href="' + w.councillor.website + '">Website</a>';
     }
 })();
