@@ -139,6 +139,8 @@
         navigator.geolocation.getCurrentPosition(function (position) {
             console.log(position);
             addressLookup(event, position.coords.latitude, position.coords.longitude);
+        }, function (positionError) {
+            document.getElementById('results').innerHTML = 'Sorry, your browser was unable to provide your location. Please type your address in the search box instead.';
         });
     }
 
