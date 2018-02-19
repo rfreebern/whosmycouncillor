@@ -26,7 +26,10 @@
         geocoder = new google.maps.Geocoder(),
         wards = [],
         districts = [],
-        infoWindow = new google.maps.InfoWindow();
+        infoWindow = new google.maps.InfoWindow(),
+        searchForm = document.getElementById('frmMain'),
+        geoButton = document.getElementById('geoButton'),
+        cityBounds = new google.maps.LatLngBounds();
 
     // Load and draw wards
     loadJSON('data/City-Ward-Map.json', function (response) {
@@ -41,6 +44,7 @@
             };
             addWardClickHandler(wards[wardNumber].polygon, wardNumber, wards[wardNumber].district);
             wards[wardNumber].polygon.setMap(map);
+            getBoundsForPolygon(wards[wardNumber].polygon, cityBounds);
         });
     });
 
@@ -60,10 +64,65 @@
     });
 
     // Wire up search box
+    searchForm.addEventListener('submit', addressLookup, false);
 
     // Wire up geolocation API
+    if ("geolocation" in navigator) {
+        geoButton.style.visibility = 'visible';
+        geoButton.addEventListener('click', userGeolocate, false);
+    }
 
     // Supporting functions
+    function addressLookup (event, latitude, longitude) {
+        event.preventDefault();
+        var geocoder = new google.maps.Geocoder;
+        if (latitude && longitude) {
+            geocoder.geocode({
+                location: {
+                    lat: latitude,
+                    lng: longitude
+                },
+                bounds: cityBounds
+            }, function (results, status) {
+                if (status == 'OK') {
+                    clickOnPoint(results[0].geometry.location);
+                    document.getElementById('txtAddress').value = results[0].formatted_address;
+                } else {
+                    document.getElementById('results').innerHTML = '<em>Couldn\'t locate an address within the city that matches your geolocation.</em>';
+                }
+            });
+        } else {
+            geocoder.geocode({
+                address: document.getElementById('txtAddress').value,
+                bounds: cityBounds,
+            }, function (results, status) {
+                if (status == 'OK') {
+                    clickOnPoint(results[0].geometry.location);
+                } else {
+                    document.getElementById('results').innerHTML = '<em>Couldn\'t locate that address within the city.</em>';
+                }
+            });
+        }
+        return false;
+    }
+
+    function clickOnPoint (point) {
+        wards.forEach(function (ward) {
+            if (pointInPolygon(point, ward.polygon)) {
+                google.maps.event.trigger(ward.polygon, 'click', {
+                    latLng: point
+                });
+            }
+        });
+    }
+
+    function userGeolocate (event) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            console.log(position);
+            addressLookup(event, position.coords.latitude, position.coords.longitude);
+        });
+    }
+
     function loadJSON (path, callback) {   
         var xhr = new XMLHttpRequest();
             xhr.overrideMimeType("application/json");
@@ -128,11 +187,14 @@
             });
             infoWindow.setContent(getInfoWindowContent(wardNumber));
             infoWindow.open(map);
+            document.getElementById('results').innerHTML = getInfoWindowContent(wardNumber);
         });
     }
 
-    function getBoundsForPolygon (polygon) {
-        var bounds = new google.maps.LatLngBounds;
+    function getBoundsForPolygon (polygon, bounds) {
+        if (!bounds) {
+            var bounds = new google.maps.LatLngBounds;
+        }
         polygon.getPath().forEach(function(latLng) {
             bounds.extend(latLng);
         });
