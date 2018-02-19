@@ -1,0 +1,58 @@
+[
+    {
+        "ward": 1,
+        "name": "Mater Christi School",
+        "address": "100 Mansfield Avenue",
+        "latitude": 44.48243657129957,
+        "longitude": -73.19865076276011
+    },
+    {
+        "ward": 2,
+        "name": "H. O. Wheeler School",
+        "address": "Corner of Walnut and Archibald Streets",
+        "latitude": 44.48808875000815,
+        "longitude": -73.21357464341543
+    },
+    {
+        "ward": 3,
+        "name": "Lawrence Barnes Elementary School",
+        "address": "123 North Street",
+        "latitude": 44.484432,
+        "longitude": -73.216812
+    },
+    {
+        "ward": 4,
+        "name": "Saint Mark's Youth Center",
+        "address": "1271 North Avenue",
+        "latitude": 44.50964399999999,
+        "longitude": -73.24924399999998
+    },
+    {
+        "ward": 5,
+        "name": "Burlington Electric Department",
+        "address": "585 Pine Street",
+        "latitude": 44.46364869321442,
+        "longitude": -73.21539311143113
+    },
+    {
+        "ward": 6,
+        "name": "Edmunds Middle School",
+        "address": "Corner of Main St and South Union",
+        "latitude": 44.47527103909605,
+        "longitude": -73.208526656353
+    },
+    {
+        "ward": 7,
+        "name": "Robert Miller Community &amp; Recreation Center",
+        "address": "130 Gosse Court",
+        "latitude": 44.51345332677059,
+        "longitude": -73.24670069646453
+    },
+    {
+        "ward": 8,
+        "name": "Fletcher Free Library",
+        "address": "235 College Street",
+        "latitude": 44.477014,
+        "longitude": -73.210148
+    }
+]
