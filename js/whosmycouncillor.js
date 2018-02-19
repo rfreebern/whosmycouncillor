@@ -41,7 +41,7 @@
             var wardNumber = ward[9];
             wards[wardNumber] = {
                 district: ward[10],
-                polygon: pointsToPolygon(wardBoundary, wardNumberToHexColor(wardNumber), wardNumberToHexColor(wardNumber))
+                polygon: pointsToPolygon(wardBoundary, '#000000', wardNumberToHexColor(wardNumber))
             };
             addWardClickHandler(wards[wardNumber].polygon, wardNumber, wards[wardNumber].district);
             wards[wardNumber].polygon.setMap(map);
