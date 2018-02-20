@@ -240,17 +240,17 @@
         var w = wards[wardNumber];
         var c = districts[w.district];
         var html = '<strong>Ward ' + wardNumber + '</strong><br>' +
-               w.councillor.name + '<br>' +
+               'Councillor: ' + w.councillor.name + '<br>' +
                '<a href="mailto:' + w.councillor.email + '">' + w.councillor.email + '</a>, ' +
                '<a href="tel:' + w.councillor.phone + '">' + w.councillor.phone + '</a><br>' +
                '<a href="' + w.councillor.website + '">Website</a><br><br>' +
                'Polling place: ' + w.pollingPlace.name + ', ' + w.pollingPlace.address + '<br><br>' +
                '<strong>' + w.district + ' District</strong><br>' +
-               c.councillor.name + '<br>' +
+               'Councillor: ' + c.councillor.name + '<br>' +
                '<a href="mailto:' + c.councillor.email + '">' + c.councillor.email + '</a>, ' +
                '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
                '<a href="' + c.councillor.website + '">Website</a>' +
-               '<hr><strong>Election 2018 Candidate Information</strong><br>' +
+               '<hr><strong>Ward ' + wardNumber + ' City Council Candidate Information</strong><br>' +
                '<a href="https://www.burlingtonvt.gov/sites/default/files/Ward%20' +
                wardNumber + '.pdf">Sample Ward ' + wardNumber + ' Ballot [PDF]</a><br><br>';
             w.candidates.forEach(function (candidate) {
