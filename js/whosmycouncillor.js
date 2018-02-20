@@ -249,7 +249,7 @@
                c.councillor.name + '<br>' +
                '<a href="mailto:' + c.councillor.email + '">' + c.councillor.email + '</a>, ' +
                '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
-               '<a href="' + w.councillor.website + '">Website</a>' +
+               '<a href="' + c.councillor.website + '">Website</a>' +
                '<hr><strong>Election 2018 Candidate Information</strong><br>' +
                '<a href="https://www.burlingtonvt.gov/sites/default/files/Ward%20' +
                wardNumber + '.pdf">Sample Ward ' + wardNumber + ' Ballot [PDF]</a><br><br>';
