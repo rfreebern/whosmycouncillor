@@ -249,7 +249,9 @@
                '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
                '<a href="' + w.councillor.website + '">Website</a>';
         if (includeCandidates) {
-            html += '<hr><strong>Election 2018 Candidate Information</strong><br>';
+            html += '<hr><strong>Election 2018 Candidate Information</strong><br>' +
+               '<a href="https://www.burlingtonvt.gov/sites/default/files/Ward%20' +
+               wardNumber + '.pdf">Sample Ward ' + wardNumber + ' Ballot [PDF]</a><br><br>';
             w.candidates.forEach(function (candidate) {
                 html += candidate.name + ' (';
                 if (candidate.incumbent) {
