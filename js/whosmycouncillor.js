@@ -16,11 +16,8 @@
                 position: google.maps.ControlPosition.BOTTOM_LEFT
             },
             panControl: false,
-            mapTypeControlOptions: {
-                mapTypeIds: ['City Map', google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID],
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-            },
-            navigationControl: true
+            mapTypeControl: false,
+            fullscreenControl: false
         },
         map = new google.maps.Map(document.getElementById("map"), mapOptions),
         geocoder = new google.maps.Geocoder(),
@@ -220,7 +217,7 @@
                 label: wards[wardNumber].pollingPlace.name
             });
             marker.setMap(map);
-            document.getElementById('results').innerHTML = getInfoWindowContent(wardNumber, true);
+            document.getElementById('results').innerHTML = getResultsContent(wardNumber);
         });
     }
 
@@ -234,7 +231,12 @@
         return bounds;
     }
 
-    function getInfoWindowContent (wardNumber, includeCandidates) {
+    function getInfoWindowContent (wardNumber) {
+        var w = wards[wardNumber];
+        return '<strong>Ward ' + wardNumber + ' / ' + w.district + ' District</strong>';
+    }
+
+    function getResultsContent (wardNumber) {
         var w = wards[wardNumber];
         var c = districts[w.district];
         var html = '<strong>Ward ' + wardNumber + '</strong><br>' +
@@ -247,9 +249,8 @@
                c.councillor.name + '<br>' +
                '<a href="mailto:' + c.councillor.email + '">' + c.councillor.email + '</a>, ' +
                '<a href="tel:' + c.councillor.phone + '">' + c.councillor.phone + '</a><br>' +
-               '<a href="' + w.councillor.website + '">Website</a>';
-        if (includeCandidates) {
-            html += '<hr><strong>Election 2018 Candidate Information</strong><br>' +
+               '<a href="' + w.councillor.website + '">Website</a>' +
+               '<hr><strong>Election 2018 Candidate Information</strong><br>' +
                '<a href="https://www.burlingtonvt.gov/sites/default/files/Ward%20' +
                wardNumber + '.pdf">Sample Ward ' + wardNumber + ' Ballot [PDF]</a><br><br>';
             w.candidates.forEach(function (candidate) {
@@ -263,7 +264,6 @@
                 }
                 html += '<br>';
             });
-        }
         return html;
     }
 })();
